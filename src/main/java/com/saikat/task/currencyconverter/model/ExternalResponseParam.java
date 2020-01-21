@@ -9,18 +9,8 @@ import java.util.Map;
 
 public class ExternalResponseParam {
 
-    private BigDecimal exchangeRate;
-    private Map<String, Double> rates;
+    private Map<String, BigDecimal> rates;
     private Date exchangeDate;
-
-    public BigDecimal getExchangeRate() {
-        return exchangeRate;
-    }
-
-    public void setExchangeRate(BigDecimal exchangeRate) {
-        this.exchangeRate = exchangeRate;
-    }
-
 
     public Date getExchangeDate() {
         return exchangeDate;
@@ -28,16 +18,16 @@ public class ExternalResponseParam {
 
     @JsonSetter("date")
     public void setExchangeDate(Date exchangeDate) {
+        System.out.println("Date : " + exchangeDate);
         this.exchangeDate = exchangeDate;
     }
 
-    public Map<String, Double> getRates() {
+    public Map<String, BigDecimal> getRates() {
         return rates;
     }
 
     @JsonProperty("rates")
-    public void setRates(Map<String, Double> rates) {
-        System.out.println("Rates : " + rates );
+    public void setRates(Map<String, BigDecimal> rates) {
         this.rates = rates;
     }
 

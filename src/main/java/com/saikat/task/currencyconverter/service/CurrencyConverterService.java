@@ -1,8 +1,9 @@
 package com.saikat.task.currencyconverter.service;
 
 import com.saikat.task.currencyconverter.model.CurrencyConversionReq;
+import com.saikat.task.currencyconverter.model.CurrencyConversionRes;
 
 public interface CurrencyConverterService {
 
-    void convert(CurrencyConversionReq req);
+    CurrencyConversionRes convert(CurrencyConversionReq req);
 }

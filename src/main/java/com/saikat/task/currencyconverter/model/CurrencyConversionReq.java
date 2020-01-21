@@ -1,6 +1,7 @@
 package com.saikat.task.currencyconverter.model;
 
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 public class CurrencyConversionReq {
 
@@ -9,7 +10,7 @@ public class CurrencyConversionReq {
     @NotNull
     private String targetCurrency;
     @NotNull
-    private String amount;
+    private BigDecimal amount;
 
     public String getSourceCurrency() {
         return sourceCurrency;
@@ -27,11 +28,11 @@ public class CurrencyConversionReq {
         this.targetCurrency = targetCurrency;
     }
 
-    public String getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 

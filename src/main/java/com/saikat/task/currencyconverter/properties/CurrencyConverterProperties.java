@@ -11,7 +11,14 @@ public class CurrencyConverterProperties {
     @Value("${currency.converter.api}")
     private String currencyConverterAPI;
 
+    @Value("${currency.formatter.locale}")
+    private String localeConfig;
+
     public String getCurrencyConverterAPI() {
         return currencyConverterAPI;
+    }
+
+    public String getLocaleConfig() {
+        return localeConfig;
     }
 }
