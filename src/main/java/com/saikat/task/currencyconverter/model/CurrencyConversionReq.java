@@ -12,6 +12,12 @@ public class CurrencyConversionReq {
     @NotNull
     private BigDecimal amount;
 
+    public CurrencyConversionReq(String sourceCurrency, String targetCurrency, BigDecimal amount) {
+        this.sourceCurrency = sourceCurrency;
+        this.targetCurrency = targetCurrency;
+        this.amount = amount;
+    }
+
     public String getSourceCurrency() {
         return sourceCurrency;
     }

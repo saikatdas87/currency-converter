@@ -49,7 +49,7 @@ public class CurrencyConverterServiceImpl implements CurrencyConverterService {
             });
             return convertAndFormat(rate, req.getAmount(), req.getTargetCurrency(), param.getExchangeDate());
         } catch (RuntimeException re) {
-            logger.error("Exception occurred while retrieving and converting", re);
+            logger.error("Exception occurred while retrieving and converting : {}", re.getMessage());
             throw new SourceNotConvertibleException(re.getMessage());
         }
     }
@@ -65,10 +65,10 @@ public class CurrencyConverterServiceImpl implements CurrencyConverterService {
      * @throws RestClientException
      */
     private <T> T fetch(Class<T> responseType, String url, Object... uriParams) throws RestClientException {
-        URI forecastUrl = new UriTemplate(url).expand(uriParams);
-        RequestEntity<String> request = new RequestEntity<>(HttpMethod.GET, forecastUrl);
+        URI exchangeUrl = new UriTemplate(url).expand(uriParams);
+        RequestEntity<String> request = new RequestEntity<>(HttpMethod.GET, exchangeUrl);
         RestTemplate template = restTemplateBuilder.build();
-        ResponseEntity<T> forecastResponse = template.exchange(forecastUrl, HttpMethod.GET, request, responseType);
+        ResponseEntity<T> forecastResponse = template.exchange(exchangeUrl, HttpMethod.GET, request, responseType);
         return forecastResponse.getBody();
     }
 
