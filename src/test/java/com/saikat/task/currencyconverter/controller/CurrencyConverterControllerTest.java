@@ -12,7 +12,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -21,7 +20,6 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 
 @WebMvcTest(CurrencyConverterController.class)
 public class CurrencyConverterControllerTest {
@@ -38,9 +36,6 @@ public class CurrencyConverterControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
-    private CurrencyConverterController controller;
-
 
     @Test
     public void gatesConvertedValue() throws Exception {
@@ -49,13 +44,12 @@ public class CurrencyConverterControllerTest {
 
         doNothing().when(currencyValidator).validateReq(request);
         when(service.convert(request)).thenReturn(expected);
-        MvcResult mvcResult = mockMvc.perform(post("/api/convert")
+        mockMvc.perform(post("/api/convert")
                 .content(objectMapper.writeValueAsString(request))
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON, objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
                 .andReturn();
-        //String actualResponseBody = mvcResult.getResponse().getContentAsString();
-        //assertEquals(objectMapper.writeValueAsString(expected), actualResponseBody);
+
     }
 
     /*@Test

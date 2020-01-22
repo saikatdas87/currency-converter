@@ -18,7 +18,6 @@ public class ExternalResponseParam {
 
     @JsonSetter("date")
     public void setExchangeDate(Date exchangeDate) {
-        System.out.println("Date : " + exchangeDate);
         this.exchangeDate = exchangeDate;
     }
 

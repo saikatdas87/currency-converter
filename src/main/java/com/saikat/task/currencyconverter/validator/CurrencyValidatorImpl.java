@@ -10,12 +10,22 @@ import java.util.Currency;
 @Service
 public class CurrencyValidatorImpl implements CurrencyValidator {
 
+    /**
+     * Method to validate the request parameters
+     *
+     * @param request
+     */
     public void validateReq(CurrencyConversionReq request) {
         validateCurrency(request.getTargetCurrency());
         validateCurrency(request.getSourceCurrency());
         validateAmount(request.getAmount());
     }
 
+    /**
+     * Validates currency if valid or not
+     *
+     * @param currency
+     */
     private void validateCurrency(String currency) {
         try {
             Currency.getInstance(currency);
@@ -24,8 +34,13 @@ public class CurrencyValidatorImpl implements CurrencyValidator {
         }
     }
 
+    /**
+     * Validates if passed amount is valid
+     *
+     * @param amount
+     */
     private void validateAmount(BigDecimal amount) {
-        if (null == amount||  0 == amount.compareTo(BigDecimal.ZERO)) {
+        if (null == amount || 0 == amount.compareTo(BigDecimal.ZERO)) {
             throw new InvalidDataException("Invalid amount : " + amount);
         }
     }

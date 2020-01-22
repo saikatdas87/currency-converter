@@ -39,6 +39,12 @@ public class CurrencyConverterServiceImpl implements CurrencyConverterService {
         this.properties = properties;
     }
 
+    /**
+     * Service method to fetch exchange rate from external service and convert and format response
+     *
+     * @param req
+     * @return CurrencyConversionRes
+     */
     @Override
     public CurrencyConversionRes convert(CurrencyConversionReq req) {
         final String CURRENCY_CONVERTER_API = properties.getCurrencyConverterAPI();
