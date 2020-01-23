@@ -51,27 +51,4 @@ public class CurrencyConverterControllerTest {
                 .andReturn();
 
     }
-
-    /*@Test
-    public void testValidationError() throws Exception {
-        CurrencyConversionReq request = new CurrencyConversionReq("EUR", "USD", BigDecimal.ZERO);
-
-        doThrow(new InvalidDataException("Invalid amount")).when(currencyValidator).validateReq(request);
-        mvc.perform(post("/api/convert", objectMapper.writeValueAsString(request))
-                .content(objectMapper.writeValueAsString(request))
-                .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
-    public void testExceptionFromService() throws Exception {
-        CurrencyConversionReq request = new CurrencyConversionReq("XXY", "USD", BigDecimal.TEN);
-
-        doNothing().when(currencyValidator).validateReq(request);
-        when(service.convert(request)).thenThrow(new SourceNotConvertibleException("Not valid currency"));
-        mvc.perform(post("/api/convert")
-                .content(objectMapper.writeValueAsString(request))
-                .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(status().isNotFound());
-    }*/
 }
