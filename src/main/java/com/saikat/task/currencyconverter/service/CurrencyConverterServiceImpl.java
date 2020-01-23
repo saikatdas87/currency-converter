@@ -101,8 +101,12 @@ public class CurrencyConverterServiceImpl implements CurrencyConverterService {
      * @return NumberFormat
      */
     private NumberFormat getNumberFormat(String targetCurrency) {
-        final Optional<String> maybeLocaleConfig = Optional.of(properties.getLocaleConfig());
-        final String[] config = maybeLocaleConfig.map(locale -> locale.split("-")).orElse(new String[]{"en", "GB"});
+        final Optional<String> maybeLocaleConfig = Optional.ofNullable(properties.getLocaleConfig());
+        String[] config = maybeLocaleConfig.map(locale -> locale.split("-")).orElse(new String[]{"en", "GB"});
+        if(config.length < 2) {
+            logger.info("Setting default locale as no configuration found or invalid configuration");
+            config = new String[]{"en", "GB"};
+        }
         Locale locale = new Locale(config[0], config[1]);
         Currency currency = Currency.getInstance(targetCurrency);
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance(locale);

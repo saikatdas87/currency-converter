@@ -5,7 +5,6 @@ import com.saikat.task.currencyconverter.model.CurrencyConversionReq;
 import com.saikat.task.currencyconverter.model.CurrencyConversionRes;
 import com.saikat.task.currencyconverter.model.ExternalResponseParam;
 import com.saikat.task.currencyconverter.properties.CurrencyConverterProperties;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -23,9 +22,10 @@ import java.net.URI;
 import java.util.Date;
 import java.util.HashMap;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class CurrencyConverterServiceTest {
@@ -65,6 +65,25 @@ public class CurrencyConverterServiceTest {
 
         CurrencyConversionRes res = service.convert(request);
         assertEquals(res.getConvertedFormattedAmount(), "$100.00");
+    }
+
+    @Test
+    public void testSuccessWithDefaultLocale() {
+        CurrencyConversionReq request = new CurrencyConversionReq("EUR", "USD", BigDecimal.TEN);
+        ResponseEntity responseEntity = mock(ResponseEntity.class);
+        ExternalResponseParam externalResponseParam = new ExternalResponseParam();
+        externalResponseParam.setExchangeDate(new Date());
+        externalResponseParam.setRates(new HashMap<String, BigDecimal>() {{
+            put("USD", BigDecimal.TEN);
+        }});
+
+        when(properties.getLocaleConfig()).thenReturn(null);
+        when(restTemplate.exchange(Mockito.<URI>any(), Mockito.<HttpMethod>eq(HttpMethod.GET),
+                Mockito.<HttpEntity<?>>any(), Mockito.<Class<Object>>any())).thenReturn(responseEntity);
+        when(responseEntity.getBody()).thenReturn(externalResponseParam);
+
+        CurrencyConversionRes res = service.convert(request);
+        assertEquals(res.getConvertedFormattedAmount(), "USD100.00");
     }
 
     @Test
