@@ -74,8 +74,8 @@ public class CurrencyConverterServiceImpl implements CurrencyConverterService {
         URI exchangeUrl = new UriTemplate(url).expand(uriParams);
         RequestEntity<String> request = new RequestEntity<>(HttpMethod.GET, exchangeUrl);
         RestTemplate template = restTemplateBuilder.build();
-        ResponseEntity<T> forecastResponse = template.exchange(exchangeUrl, HttpMethod.GET, request, responseType);
-        return forecastResponse.getBody();
+        ResponseEntity<T> converterResponse = template.exchange(exchangeUrl, HttpMethod.GET, request, responseType);
+        return converterResponse.getBody();
     }
 
 
