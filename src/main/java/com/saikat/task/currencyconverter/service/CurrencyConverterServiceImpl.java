@@ -103,6 +103,7 @@ public class CurrencyConverterServiceImpl implements CurrencyConverterService {
     private NumberFormat getNumberFormat(String targetCurrency) {
         final Optional<String> maybeLocaleConfig = Optional.ofNullable(properties.getLocaleConfig());
         String[] config = maybeLocaleConfig.map(locale -> locale.split("-")).orElse(new String[]{"en", "GB"});
+
         if(config.length < 2) {
             logger.info("Setting default locale as no configuration found or invalid configuration");
             config = new String[]{"en", "GB"};
